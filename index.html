@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>汽車電路模擬診斷實驗平台 | Automotive Circuit Lab</title>
+    
+    <!-- 引入 Google Fonts (Noto Sans TC) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- 引入 Tailwind CSS (快速樣式設計) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 引入 Lucide Icons (圖示庫) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- 自定義 Tailwind 配置 -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Noto Sans TC', 'sans-serif'],
+                    },
+                    colors: {
+                        'tech-blue': '#0ea5e9',
+                        'tech-dark': '#0f172a',
+                        'tech-card': '#1e293b',
+                        'accent-amber': '#f59e0b',
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* 自定義背景圖案 (電路板風格) */
+        .circuit-bg {
+            background-color: #0f172a;
+            background-image: 
+                radial-gradient(#1e293b 1px, transparent 1px),
+                radial-gradient(#1e293b 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+        }
+        
+        .hero-glow {
+            background: radial-gradient(circle at center, rgba(14, 165, 233, 0.15) 0%, rgba(15, 23, 42, 0) 70%);
+        }
+
+        /* 按鈕光暈效果 */
+        .btn-glow:hover {
+            box-shadow: 0 0 15px rgba(14, 165, 233, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-tech-dark text-slate-200 antialiased selection:bg-tech-blue selection:text-white flex flex-col min-h-screen">
+
+    <!-- 導航列 -->
+    <nav class="sticky top-0 z-50 w-full border-b border-slate-800 bg-tech-dark/90 backdrop-blur supports-[backdrop-filter]:bg-tech-dark/60">
+        <div class="container mx-auto flex h-16 items-center justify-between px-4">
+            <div class="flex items-center gap-2">
+                <i data-lucide="zap" class="h-6 w-6 text-yellow-400 fill-yellow-400"></i>
+                <span class="text-xl font-bold tracking-tight text-white">汽車電路<span class="text-tech-blue">模擬診斷實驗平台</span></span>
+            </div>
+            <div class="hidden md:flex gap-6 text-sm font-medium">
+                <a href="#simulators" class="hover:text-tech-blue transition-colors">模擬教學單元</a>
+                <a href="#concepts" class="hover:text-tech-blue transition-colors">核心觀念</a>
+                <a href="#about" class="hover:text-tech-blue transition-colors">關於本站</a>
+            </div>
+            <!-- 手機版選單按鈕 (簡化版) -->
+            <button class="md:hidden p-2 text-slate-400 hover:text-white">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 主要內容區 (Hero Section) -->
+    <main class="flex-grow">
+        <section class="relative pt-20 pb-32 overflow-hidden circuit-bg">
+            <div class="absolute inset-0 hero-glow"></div>
+            <div class="container mx-auto px-4 relative z-10 text-center">
+                <div class="inline-flex items-center rounded-full border border-slate-700 bg-slate-800/50 px-3 py-1 text-sm text-slate-300 mb-6 animate-float">
+                    <span class="flex h-2 w-2 rounded-full bg-green-500 mr-2 animate-pulse"></span>
+                    互動式線上教學平台
+                </div>
+                <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight leading-tight">
+                    看見「看不見」的電流 <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-tech-blue to-purple-400">精通汽車電路診斷</span>
+                </h1>
+                <p class="text-lg text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+                    透過視覺化模擬器，深入理解感知器原理、掌握電路查修邏輯，以及熟悉三用電表的操作。無須拆裝實車，隨時隨地累積實戰經驗。
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#simulators" class="btn-glow inline-flex h-12 items-center justify-center rounded-md bg-tech-blue px-8 text-sm font-medium text-white transition-colors hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-900">
+                        開始學習
+                        <i data-lucide="arrow-right" class="ml-2 h-4 w-4"></i>
+                    </a>
+                    <a href="https://github.com" target="_blank" class="inline-flex h-12 items-center justify-center rounded-md border border-slate-700 bg-transparent px-8 text-sm font-medium text-slate-200 transition-colors hover:bg-slate-800 focus:outline-none">
+                        <i data-lucide="github" class="mr-2 h-4 w-4"></i>
+                        GitHub 專案
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 模擬器單元區塊 (核心功能) -->
+        <section id="simulators" class="py-20 bg-slate-900">
+            <div class="container mx-auto px-4">
+                <div class="flex items-center mb-12">
+                    <div class="h-8 w-1 bg-tech-blue rounded-full mr-3"></div>
+                    <h2 class="text-3xl font-bold text-white">精選模擬單元</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- 卡片 1: 電路查修觀念模擬器 -->
+                    <div class="group relative rounded-xl bg-tech-card border border-slate-700 p-6 shadow-lg transition-all hover:scale-[1.02] hover:shadow-blue-500/20 hover:border-tech-blue/50 flex flex-col">
+                        <div class="absolute -top-4 -right-4 h-24 w-24 bg-tech-blue/10 rounded-full blur-2xl group-hover:bg-tech-blue/20 transition-all"></div>
+                        <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-blue-500/10 text-blue-400 group-hover:text-white group-hover:bg-blue-500 transition-colors">
+                            <i data-lucide="search-code" class="h-6 w-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">電路查修觀念模擬器</h3>
+                        <p class="text-slate-400 text-sm mb-6 flex-grow">
+                            模擬真實車輛電路故障情境，學習如何閱讀電路圖、判斷斷路與短路位置，建立正確的邏輯診斷流程。
+                        </p>
+                        <!-- TODO: 請在此處 href 填入您 GitHub 的網址 -->
+                        <a href="https://ntccar01.github.io/NTC_CTSP_1/" target="_blank" class="mt-auto w-full inline-flex items-center justify-center rounded-lg bg-slate-700 py-3 text-sm font-medium text-white transition-colors hover:bg-tech-blue group-hover:shadow-lg">
+                            進入模擬器
+                            <i data-lucide="external-link" class="ml-2 h-4 w-4"></i>
+                        </a>
+                    </div>
+
+                    <!-- 卡片 2: 引擎感知器(電位計式)模擬器 -->
+                    <div class="group relative rounded-xl bg-tech-card border border-slate-700 p-6 shadow-lg transition-all hover:scale-[1.02] hover:shadow-amber-500/20 hover:border-amber-500/50 flex flex-col">
+                        <div class="absolute -top-4 -right-4 h-24 w-24 bg-amber-500/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition-all"></div>
+                        <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-amber-500/10 text-amber-400 group-hover:text-white group-hover:bg-amber-500 transition-colors">
+                            <i data-lucide="gauge" class="h-6 w-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">引擎感知器模擬器</h3>
+                        <p class="text-xs font-mono text-amber-500 mb-1">TYPE: 電位計式 (Potentiometer)</p>
+                        <p class="text-slate-400 text-sm mb-6 flex-grow">
+                            深入解析節氣門位置感知器(TPS)等電位計原理。調整滑動電阻，即時觀察電壓訊號與電腦(ECU)讀值的變化關係。
+                        </p>
+                        <!-- TODO: 請在此處 href 填入您 GitHub 的網址 -->
+                        <a href="https://ntccar01.github.io/NTC_CAR_FFTS/" target="_blank" class="mt-auto w-full inline-flex items-center justify-center rounded-lg bg-slate-700 py-3 text-sm font-medium text-white transition-colors hover:bg-amber-600 group-hover:shadow-lg">
+                            進入模擬器
+                            <i data-lucide="external-link" class="ml-2 h-4 w-4"></i>
+                        </a>
+                    </div>
+
+                    <!-- 卡片 3: 電路元件量測模擬器 -->
+                    <div class="group relative rounded-xl bg-tech-card border border-slate-700 p-6 shadow-lg transition-all hover:scale-[1.02] hover:shadow-green-500/20 hover:border-green-500/50 flex flex-col">
+                        <div class="absolute -top-4 -right-4 h-24 w-24 bg-green-500/10 rounded-full blur-2xl group-hover:bg-green-500/20 transition-all"></div>
+                        <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-green-500/10 text-green-400 group-hover:text-white group-hover:bg-green-500 transition-colors">
+                            <i data-lucide="activity" class="h-6 w-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">電路元件量測模擬器(開發中)</h3>
+                        <p class="text-slate-400 text-sm mb-6 flex-grow">
+                            虛擬三用電表操作實務。在安全環境下練習測量電壓(V)、電流(A)與電阻(Ω)，熟悉量測點的選擇與讀數判讀。
+                        </p>
+                        <!-- TODO: 請在此處 href 填入您 GitHub 的網址 -->
+                        <a href="https://github.com/您的帳號/專案連結3" target="_blank" class="mt-auto w-full inline-flex items-center justify-center rounded-lg bg-slate-700 py-3 text-sm font-medium text-white transition-colors hover:bg-green-600 group-hover:shadow-lg">
+                            進入模擬器
+                            <i data-lucide="external-link" class="ml-2 h-4 w-4"></i>
+                        </a>
+                    </div>
+
+                    <!-- 卡片 4: 更多單元 (預留位) -->
+                    <div class="rounded-xl border border-dashed border-slate-700 p-6 flex flex-col items-center justify-center text-center opacity-75 hover:opacity-100 transition-opacity min-h-[250px]">
+                        <div class="h-12 w-12 rounded-full bg-slate-800 flex items-center justify-center mb-4">
+                            <i data-lucide="plus" class="text-slate-400"></i>
+                        </div>
+                        <h3 class="text-lg font-medium text-white">更多單元開發中</h3>
+                        <p class="text-sm text-slate-500 mt-2">CAN Bus 通訊、示波器波形分析...</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 教學特色區塊 -->
+        <section id="concepts" class="py-20 relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent"></div>
+            <div class="container mx-auto px-4">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-3xl font-bold text-white mb-4">為什麼選擇模擬器學習？</h2>
+                    <p class="text-slate-400">汽車電路看不見、摸不著，傳統教學難以直觀理解。透過數位模擬，我們將抽象的電學理論具象化。</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="text-center p-6">
+                        <div class="mx-auto h-16 w-16 bg-slate-800 rounded-full flex items-center justify-center mb-4 text-tech-blue">
+                            <i data-lucide="shield-check" class="h-8 w-8"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-white mb-2">安全無風險</h4>
+                        <p class="text-sm text-slate-400">不用擔心短路燒毀昂貴的車用電腦(ECU)、元件或線束，大膽嘗試錯誤，從失敗中學習。</p>
+                    </div>
+                    <div class="text-center p-6">
+                        <div class="mx-auto h-16 w-16 bg-slate-800 rounded-full flex items-center justify-center mb-4 text-tech-blue">
+                            <i data-lucide="eye" class="h-8 w-8"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-white mb-2">查修可視化</h4>
+                        <p class="text-sm text-slate-400">透過動畫呈現查修狀態及電壓與電阻變化，讓查修電路過程直覺及可視化，操作者容易理解。</p>
+                    </div>
+                    <div class="text-center p-6">
+                        <div class="mx-auto h-16 w-16 bg-slate-800 rounded-full flex items-center justify-center mb-4 text-tech-blue">
+                            <i data-lucide="repeat" class="h-8 w-8"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-white mb-2">無限次練習</h4>
+                        <p class="text-sm text-slate-400">故障項可自行設定，讓您反覆練習查修邏輯，直到形成肌肉記憶。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 頁尾 -->
+    <footer class="border-t border-slate-800 bg-slate-950 py-12">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-4 md:mb-0">
+                <span class="text-xl font-bold text-white flex items-center gap-2">
+                    <i data-lucide="wrench" class="h-5 w-5 text-slate-400"></i>
+                    汽車電路教學網
+                </span>
+                <p class="text-sm text-slate-500 mt-2">網站由國立臺東專科學校汽車科林慶泓老師 & Gemini開發，致力於推廣基礎汽車檢修教育。</p>
+            </div>
+            <div class="flex gap-6">
+                <a href="#" class="text-slate-400 hover:text-white transition-colors"><i data-lucide="github" class="h-5 w-5"></i></a>
+                <a href="#" class="text-slate-400 hover:text-white transition-colors"><i data-lucide="mail" class="h-5 w-5"></i></a>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 mt-8 pt-8 border-t border-slate-900 text-center text-xs text-slate-600">
+            &copy; 2025 Automotive Circuit Lab. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- 初始化圖示 -->
+    <script>
+        // 初始化 Lucide Icons
+        lucide.createIcons();
+
+        // 平滑滾動效果
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
